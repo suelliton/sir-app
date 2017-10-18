@@ -39,5 +39,17 @@ sudo pip install requests
 sudo pip install serial ou pyserial
 
 
+#COLOCAR SCRIPTS PRA INICIAR JUNTO COMO SISTEMA
+#mover scripts para /etc/init.d/
+
+#dar permissao 
+sudo chmod +x meuScript.sh
+
+#inserir na inicialização 
+ update-rc.d meuScript defaults 
+
+ $tutorial
+ http://rberaldo.com.br/executando-scripts-na-inicializacao-do-debianubuntu/ 
+
 
 
