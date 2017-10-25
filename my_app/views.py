@@ -9,7 +9,7 @@ import time
 import serial
 
 
-          
+comport = serial.Serial('/dev/ttyUSB0',9600)     
 coleta = Blueprint('coleta', __name__)
 liga = Blueprint('liga',__name__) 
 desliga = Blueprint('desliga',__name__)
@@ -24,7 +24,7 @@ class ColetaView(MethodView):
     def get(self, id=None, page=1):            
         try:
             
-            comport = serial.Serial('/dev/ttyUSB0',9600)
+            #comport = serial.Serial('/dev/ttyUSB0',9600)
             time.sleep(1.5)      
             PARAM_COLETA='t'            
             PARAM_ASCII_COLETA=str(chr(116))           
@@ -32,7 +32,7 @@ class ColetaView(MethodView):
             comport.write(PARAM_ASCII_COLETA)          
             VALUE_SERIAL=str(comport.readline())
             VALUE_TEMPERATURA, VALUE_UMIDADE = VALUE_SERIAL.split(":")
-            comport.close()                         
+            #comport.close()                         
                             
 
             return jsonify({"temperatura" : VALUE_TEMPERATURA,"umidade" :VALUE_UMIDADE})
@@ -73,13 +73,14 @@ class LigaView(MethodView):
     def get(self, id=None, page=1):                        
        
         try:
-            comport = serial.Serial('/dev/ttyUSB0',9600)
+            #comport = serial.Serial('/dev/ttyUSB0',9600)
             time.sleep(1.5)      
             PARAM_LIGAR='1'           
             PARAM_ASCII_LIGAR=str(chr(49))           
             comport.write(PARAM_LIGAR)
             comport.write(PARAM_ASCII_LIGAR)                                  
-            comport.close()                     
+            #comport.close()  
+            return "Ligado"                   
         except Exception as e:
             return str(e)    
 
@@ -94,13 +95,14 @@ class desligaView(MethodView):
     def get(self, id=None, page=1):    
        
         try:
-            comport = serial.Serial('/dev/ttyUSB0',9600)
+            #comport = serial.Serial('/dev/ttyUSB0',9600)
             time.sleep(1.5)      
             PARAM_DESLIGAR='2'           
             PARAM_ASCII_DESLIGAR=str(chr(50))           
             comport.write(PARAM_DESLIGAR)
             comport.write(PARAM_ASCII_DESLIGAR)                                  
-            comport.close()                     
+            #comport.close()     
+            return "Desligado"                
         except Exception as e:
             return str(e)    
 

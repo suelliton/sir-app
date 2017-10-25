@@ -4,8 +4,9 @@ int sensorPin = A0;
 int leituraSensor;
 int LM35 = A0;
 float temperatura;
-
+int estadoLed = 0;
 void setup(){
+  estadoLed = 0;
   Serial.begin(9600);
 }
 
@@ -15,19 +16,20 @@ void loop(){
   
   temperatura = (float(analogRead(LM35))*5/(1023))/0.01;
   
+  digitalWrite(led,estadoLed);
+  
   if(Serial.available() > 0){
   leituraSerial = Serial.read();  
   
   if(leituraSerial == '1'){
-    digitalWrite(led,HIGH);
+    estadoLed = 1;    
   }else if(leituraSerial == '2'){
-    digitalWrite(led,LOW);
+    estadoLed = 0;   
   }else if(leituraSerial == 't'){
     
-    Serial.print("LUMINOSIDADE: ");
-    Serial.print(leituraSensor);
-    Serial.print("TEMPERATURA");
-    Serial.println(temperatura);
+    Serial.print(temperatura);
+    Serial.print(":");
+    Serial.println(leituraSensor);
   }
   
   
