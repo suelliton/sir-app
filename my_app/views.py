@@ -31,11 +31,11 @@ class ColetaView(MethodView):
             comport.write(PARAM_COLETA)
             comport.write(PARAM_ASCII_COLETA)          
             VALUE_SERIAL=str(comport.readline())
-            VALUE_TEMPERATURA, VALUE_UMIDADE = VALUE_SERIAL.split(":")
+            VALUE_UMIDADE, VALUE_TEMPERATURA, VALUE_UMIDADE_SOLO = VALUE_SERIAL.split(":")
             #comport.close()                         
                             
 
-            return jsonify({"temperatura" : VALUE_TEMPERATURA,"umidade" :VALUE_UMIDADE})
+            return jsonify({"umidade" : VALUE_UMIDADE,"temperatura" :VALUE_TEMPERATURA,"umidade_solo":VALUE_UMIDADE_SOLO})
         except Exception as e:
             return str(e) 
  
@@ -80,7 +80,7 @@ class LigaView(MethodView):
             comport.write(PARAM_LIGAR)
             comport.write(PARAM_ASCII_LIGAR)                                  
             #comport.close()  
-            return "Ligado"                   
+            return jsonify({"temperatura" :"ligado" ,"umidade" :"ligado"})                   
         except Exception as e:
             return str(e)    
 
@@ -102,7 +102,7 @@ class desligaView(MethodView):
             comport.write(PARAM_DESLIGAR)
             comport.write(PARAM_ASCII_DESLIGAR)                                  
             #comport.close()     
-            return "Desligado"                
+            return jsonify({"temperatura" :"desligado" ,"umidade" :"desligado"})                   
         except Exception as e:
             return str(e)    
 

@@ -1,6 +1,8 @@
-int led = 13;
+#include <Adafruit_Sensor.h>
+
+int rele = 13;
 char leituraSerial;
-int sensorPin = A0;
+int sensorTemperatura = A0;
 int leituraSensor;
 int LM35 = A0;
 float temperatura;
